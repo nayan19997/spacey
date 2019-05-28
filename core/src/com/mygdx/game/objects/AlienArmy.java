@@ -64,8 +64,12 @@ public class AlienArmy {
 
         removeDeadAliens();
         removeShoots();
+        checkAllDead();
     }
 
+    boolean checkAllDead() {
+         return aliens.isEmpty();
+    }
 
     void positionAliens(){
         for (int i = 0; i < 5; i++) {  // fila
@@ -90,12 +94,15 @@ public class AlienArmy {
 
             for (Alien alien : aliens) {
                 alien.position.x += speed;
+
+
             }
         }
     }
 
     void shoot(Assets assets){
-        if(shootTimer.check()){
+
+        if(shootTimer.check() && !aliens.isEmpty()){
             int alienNum = random.nextInt(aliens.size);
 
             Alien alien = aliens.get(alienNum);

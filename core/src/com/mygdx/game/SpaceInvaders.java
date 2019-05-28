@@ -9,7 +9,10 @@ public class SpaceInvaders extends Game {
 
 	public Assets assets;
 
-	@Override
+    public SpaceInvaders(SpaceInvaders game) {
+    }
+
+    @Override
 	public void create () {
 		assets = new Assets();
 		assets.load();

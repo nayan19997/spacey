@@ -32,7 +32,7 @@ public class GameScreen extends SpaceInvadersScreen {
 
         spriteBatch = new SpriteBatch();
 
-        world = new World(SCENE_WIDTH, SCENE_HEIGHT);
+        world = new World(assets, SCENE_WIDTH, SCENE_HEIGHT);
     }
 
     @Override

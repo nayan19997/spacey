@@ -9,16 +9,21 @@ public class World {
     Space space;
     Ship ship;
     AlienArmy alienArmy;
+    WinInfo winInfo;
+    Gameover gameover;
 
     int WORLD_WIDTH, WORLD_HEIGHT;
 
-    public World(int WORLD_WIDTH, int WORLD_HEIGHT){
+    public World(Assets assets, int WORLD_WIDTH, int WORLD_HEIGHT){
         this.WORLD_WIDTH = WORLD_WIDTH;
         this.WORLD_HEIGHT = WORLD_HEIGHT;
 
         space = new Space();
         ship = new Ship(WORLD_WIDTH/2);
         alienArmy = new AlienArmy(WORLD_WIDTH, WORLD_HEIGHT);
+        winInfo = new WinInfo(assets);
+        gameover = new Gameover(assets);
+
     }
 
     public void render(float delta, SpriteBatch batch, Assets assets){
@@ -29,16 +34,33 @@ public class World {
         space.render(batch);
         ship.render(batch);
         alienArmy.render(batch);
+        winInfo.render(batch);
+
         batch.end();
     }
 
     void update(float delta, Assets assets){
+
         space.update(delta, assets);
         ship.update(delta, assets);
         alienArmy.update(delta, assets);
 
         checkCollisions(assets);
+        checkEndGame();
     }
+
+    private void checkEndGame() {
+        if(alienArmy.checkAllDead()){
+            winInfo.show = true;
+        }
+    }
+
+    private void checkGameOver(){
+       if (ship.lifezero()) {
+           winInfo.show = true;
+       }
+       }
+
 
     private void checkCollisions(Assets assets) {
         checkNaveInWorld();
